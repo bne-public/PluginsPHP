@@ -1,0 +1,50 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+.job{
+  border-bottom: 0.1em solid;
+}
+
+.job .job-title{
+  margin: 0.75em 0 0;
+}
+
+.job div{
+  padding: 0.75em 0 0;
+}
+
+.job .job-location{
+  padding: 0px;
+}
+
+.job .job-description{      
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+}
+
+.job .job-links{
+  padding-bottom: 0.75em;
+  text-align: right;
+}
+
+.job .job-links a{
+  font-size: 14px;
+  margin: 0 0.5em;
+}
+
+.job .description-title{
+  width: calc(100%/3);
+  font-weight: 900;
+}
+
+.job .description-text{
+  width: calc((100%/3)*2);
+}
+
+.jobs #pagination{
+  text-align: center;
+}
