@@ -39,8 +39,8 @@ class BNE_Strings {
     const APIKEY_OPTION_NAME = 'bne_api_key';
     //const URL_SANDBOX_OPTION_NAME = 'http://gatewayapiteste.bne.com.br/apibne';
     //const URL_SANDBOX_OPTION_NAME = 'http://localhost:9001/apibne';
-	const URL_SANDBOX_OPTION_NAME = 'http://api.bne.com.br/';
-    const URL_PROD_OPTION_NAME = 'http://api.bne.com.br/';
+	const URL_SANDBOX_OPTION_NAME = 'http://gatewayapi.bne.com.br/apibne';
+    const URL_PROD_OPTION_NAME = 'http://gatewayapi.bne.com.br/apibne';
 
     const JOB_SEARCH_RESULT_DEFAULT_URL = '/vagas-de-emprego';
     const JOB_SEARCH_RESULT_URL_OPTION_NAME = 'bne_job_search_result_url';
