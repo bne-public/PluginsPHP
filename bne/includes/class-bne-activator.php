@@ -247,6 +247,15 @@ class BNE_Activator
             return false; // There is a page for job results
         }
 
+        if($post_status === 'draft'){
+            $current_post = array(
+                'ID' => $page_id,
+                'post_status'   => 'publish'
+            );
+            wp_update_post($current_post);
+            return true;
+        }
+
         // Creating the page for job search result
         $my_post = array(
             'post_title'    => $post_title,
