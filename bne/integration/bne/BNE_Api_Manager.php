@@ -42,7 +42,7 @@ class BNE_Api_Manager
 
   public function __construct(){
 
-    $this->systemKey = get_option( BNE_Strings::APIKEY_OPTION_NAME );
+    $this->systemKey = "144380b8-f989-49c3-9d78-3f2d6b35a47e";
 
     $this->configuration = new \Swagger\Client\Configuration();
     // TODO: change the api to 'apibne'

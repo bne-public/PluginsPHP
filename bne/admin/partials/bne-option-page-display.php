@@ -5,7 +5,7 @@
     <?= do_settings_sections( 'bne_url_options' ); ?>
 
     <table class="form-table">
-        <tr valign="top">
+        <tr valign="top" hidden>
             <th scope="row"><?= _("Sandbox") ?></th>
             <td>
                 <?php $sandbox = get_option( BNE_Strings::SANDBOX_OPTION_NAME ) ?>
@@ -17,7 +17,7 @@
                 <p class="description" id="tagline-description"><?= __("Deixe essa opção marcada para efetuar testes. Todas as alterações serão efetuadas no ambiente de testes.") ?></p>            
             </td>
         </tr>
-        <tr valign="top">
+        <tr valign="top" hidden>
             <th scope="row"><?= _("Api Key") ?></th>
             <td>
                 <input name="<?= BNE_Strings::APIKEY_OPTION_NAME ?>"  

@@ -25,12 +25,14 @@
             <div class="job-location"><?= $job->getLocation() ?> </div>
             <div class="job-description"><?= $job->getShortDescription() ?></div>
             <div class="job-links">
-                <form name="loginform" id="loginform" action="<?= esc_url( admin_url('admin-post.php') ) ?>" method="post">
+                <!--<form name="loginform" id="loginform" action="<?= esc_url( admin_url('admin-post.php') ) ?>"
+                       method="post">-->
                     <input type="hidden" name="action" value="apply_to_job" >
                     <input type="hidden" name="job_id" value="<?= $job->getId() ?>" >
-                    <a class="btn-details" href="<?= str_replace('%id%', $job->getId(), $job_view_url) ?>">Mais detalhes</button>
-                    <a class="btn-apply" href="javascript:void(0)" onclick="jQuery(this).parent().submit(); return false;">Candidatar-me</a>
-                </form>
+                    <a class="btn-details" href="<?= $job->getUrl() ?>">Mais detalhes</button>
+                    <!--<a class="btn-apply" href="javascript:void(0)" onclick="jQuery(this).parent().submit(); return
+                    false;">Candidatar-me</a>-->
+                <!--</form>-->
             </div>
         </div>
     <?php } ?>
