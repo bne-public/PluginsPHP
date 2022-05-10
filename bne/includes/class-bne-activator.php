@@ -72,30 +72,6 @@ class BNE_Activator
             add_rewrite_rule($rewriteRegex,  get_option(BNE_Strings::JOB_SEARCH_RESULT_REWRITE_DESTIN_OPTION_NAME), 'top');            
         }
 
-        // Adds job view rule
-        $rewriteRegex = get_option(BNE_Strings::JOB_VIEW_REWRITE_REGEX_OPTION_NAME);
-        if (!isset( $rules[$rewriteRegex] )) {
-            add_rewrite_rule($rewriteRegex,  get_option(BNE_Strings::JOB_VIEW_REWRITE_DESTIN_OPTION_NAME), 'top');            
-        }
-
-        // Adds login view rule
-        $rewriteRegex = get_option( BNE_Strings::LOGIN_CV_REWRITE_REGEX_OPTION_NAME );
-        if (!isset( $rules[$rewriteRegex] )) {
-            add_rewrite_rule($rewriteRegex,  get_option(BNE_Strings::LOGIN_CV_REWRITE_DESTIN_OPTION_NAME ), 'top');            
-        }
-
-        // Adds register rule
-        $rewriteRegex = get_option( BNE_Strings::REGISTER_CV_REWRITE_REGEX_OPTION_NAME );
-        if (!isset( $rules[$rewriteRegex] )) {
-            add_rewrite_rule($rewriteRegex,  get_option(BNE_Strings::REGISTER_CV_REWRITE_DESTIN_OPTION_NAME ), 'top');            
-        }
-
-        // Adds register sucess rule
-        $rewriteRegex = get_option( BNE_Strings::SUCCESS_REGISTER_CV_REWRITE_REGEX_OPTION_NAME );
-        if (!isset( $rules[$rewriteRegex] )) {
-            add_rewrite_rule($rewriteRegex,  get_option(BNE_Strings::SUCCESS_REGISTER_CV_REWRITE_DESTIN_OPTION_NAME ), 'top');            
-        }
-
         //update_option('rewrite_rules', $rules);
         flush_rewrite_rules();
     }
@@ -112,52 +88,6 @@ class BNE_Activator
         // Defining default value for job search result url
         if (empty(get_option( BNE_Strings::SANDBOX_OPTION_NAME ))) {
             update_option( BNE_Strings::SANDBOX_OPTION_NAME, "on" );
-        }
-
-        // Defining default value for job search result url
-        if (empty(get_option( BNE_Strings::JOB_SEARCH_RESULT_URL_OPTION_NAME ))) {
-            update_option( BNE_Strings::JOB_SEARCH_RESULT_URL_OPTION_NAME,
-                BNE_Strings::JOB_SEARCH_RESULT_DEFAULT_URL );
-                // Updating all parameters linked with job search result
-                BNE_Option_Page::update_job_search_result_options();
-        }
-
-        // Defining default value for results per page
-        if (empty(get_option( BNE_Strings::JOB_SEARCH_RESULTS_PER_PAGE_OPTION_NAME ))) {
-            update_option( BNE_Strings::JOB_SEARCH_RESULTS_PER_PAGE_OPTION_NAME,
-                BNE_Strings::JOB_SEARCH_RESULTS_PER_PAGE_DEFAULT_VALUE );
-        }
-
-        // Defining default value for job view url
-        if (empty(get_option( BNE_Strings::JOB_VIEW_URL_OPTION_NAME ))) {
-            update_option( BNE_Strings::JOB_VIEW_URL_OPTION_NAME,
-                BNE_Strings::JOB_VIEW_DEFAULT_URL );
-                // Updating all parameters linked with job search result
-                BNE_Option_Page::update_job_view_options();
-        }
-
-        // Defining default value for login url
-        if (empty(get_option( BNE_Strings::LOGIN_CV_URL_OPTION_NAME ))) {
-            update_option( BNE_Strings::LOGIN_CV_URL_OPTION_NAME,
-                BNE_Strings::LOGIN_CV_DEFAULT_URL );
-                // Updating all parameters linked with job search result
-                BNE_Option_Page::update_login_view_options();
-        }
-
-        // Defining default value for register url
-        if (empty(get_option( BNE_Strings::REGISTER_CV_URL_OPTION_NAME ))) {
-            update_option( BNE_Strings::REGISTER_CV_URL_OPTION_NAME,
-                BNE_Strings::REGISTER_CV_DEFAULT_URL );
-                // Updating all parameters linked with job search result
-                BNE_Option_Page::update_register_view_options();
-        }
-
-        // Defining default value for register sucess url
-        if (empty(get_option( BNE_Strings::SUCCESS_REGISTER_CV_URL_OPTION_NAME ))) {
-            update_option( BNE_Strings::SUCCESS_REGISTER_CV_URL_OPTION_NAME,
-                BNE_Strings::SUCCESS_REGISTER_CV_DEFAULT_URL );
-                // Updating all parameters linked with job search result
-                BNE_Option_Page::update_success_register_view_options();
         }
     }
 
@@ -176,50 +106,6 @@ class BNE_Activator
         if ($created) {
             // Updating all parameters linked with job search result page id
             BNE_Option_Page::update_job_search_result_options();
-        }
-
-        // Inserting job view default page
-        $created = BNE_Activator::insert_default_page(
-            BNE_Strings::JOB_VIEW_PAGE_ID_OPTION_NAME,
-            __('Vaga'),
-            '['. BNE_Strings::JOB_VIEW_SHORTCODE_NAME .']');
-        if ($created) {
-            // Updating all parameters linked with job search result page id
-            BNE_Option_Page::update_job_view_options();
-        }
-
-        // Inserting login view default page
-        $created = BNE_Activator::insert_default_page(
-            BNE_Strings::LOGIN_CV_PAGE_ID_OPTION_NAME,
-            __('Login CV'),
-            '['. BNE_Strings::LOGIN_SHORTCODE_NAME .']');
-        if ($created) {
-            // Updating all parameters linked with login page id
-            BNE_Option_Page::update_login_view_options();
-        }
-
-        // Inserting register view default page
-        $created = BNE_Activator::insert_default_page(
-            BNE_Strings::REGISTER_CV_PAGE_ID_OPTION_NAME,
-            __('Cadastro CV'),
-            '['. BNE_Strings::REGISTER_SHORTCODE_NAME .']');
-        if ($created) {
-            // Updating all parameters linked with register page id
-            BNE_Option_Page::update_register_view_options();
-        }
-
-        // Inserting register success view default page
-        $created = BNE_Activator::insert_default_page(
-            BNE_Strings::SUCCESS_REGISTER_CV_PAGE_ID_OPTION_NAME,
-            __('Sucesso no Cadastro CV'),
-            '<div class="register-cv-success">'.
-            '<h1>'. __("O cadastro do seu curriculo foi realizado com sucesso") .'</h1>'.
-            '<p>'. __("Aproveite para pesquisar vagas e candidatar-se gratuitamente.") .'</p>'.  
-            '['. BNE_Strings::JOB_SEARCH_FORM_SHORTCODE_NAME .']'.          
-            '</div>');
-        if ($created) {
-            // Updating all parameters linked with register page id
-            BNE_Option_Page::update_success_register_view_options();
         }
     }
 
