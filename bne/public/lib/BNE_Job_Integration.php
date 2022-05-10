@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 use Swagger\Client;
 use Swagger\Client\Api;
 
