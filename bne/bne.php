@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       BNE
- * Plugin URI:        http://example.com/bne-uri/
- * Description:       Exiba vagas do BNE em sua página.
+ * Plugin URI:        https://www.bne.com.br/bne-vagas
+ * Description:       Ofereça milhares de vagas de emprego atualizadas diariamente em seu site Wordpress. Publique anúncios de ofertas de emprego catalogadas por área com um filtro de pesquisa simples e eficiente. Assim que encontrar uma vaga de interesse, o usuário será redirecionado para o site do BNE (Banco Nacional de Empregos) para o cadastro do currículo e poderá candidatar-se à vaga escolhida de imediato.
  * Version:           1.0.0
  * Author:            BNE - Banco Nacional de Empregos
- * Author URI:        http://www.bne.com.br/
+ * Author URI:        https://www.bne.com.br/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bne
