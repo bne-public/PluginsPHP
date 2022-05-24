@@ -11,12 +11,18 @@
  * @subpackage BNE/public/partials
  */
 ?>
-<?php if (isset($_GET["successOnApply"]) && $_GET["successOnApply"]) { ?>
-  <p class="message">	<? __("Candidatura efetuada com sucesso.") ?><br></p>
-<?php } ?>
-<?php if (isset($_GET["successOnApply"]) && !$_GET["successOnApply"]) { ?>
-  <div id="login_error"><?= __("Não foi possível efetuar sua candidatura. Por favor, tente mais tarde") ?><br></div>
-<?php } ?>
+<div class="job-search-form">
+    <form action="<?= $job_search_result_url ?>" method="GET">
+        <input type="text" name="q" value="" placeholder="Digitar a função (ex.: Vendedor)" />
+        <select name="estado" id="uf">
+            <option disabled selected value>Selecione</option>
+        </select>
+        <select name="cidade" id="cidade">
+        <option disabled selected value>Selecione</option>   
+        </select>
+        <input type="submit" value="<?= __("Buscar Vagas") ?>" />
+    </form>
+</div>
 <div class="jobs">
     <?php
     foreach ($search_result->getJobs() as $key => $job) { ?>
@@ -25,14 +31,9 @@
             <div class="job-location"><?= $job->getLocation() ?> </div>
             <div class="job-description"><?= $job->getShortDescription() ?></div>
             <div class="job-links">
-                <!--<form name="loginform" id="loginform" action="<?= esc_url( admin_url('admin-post.php') ) ?>"
-                       method="post">-->
-                    <input type="hidden" name="action" value="apply_to_job" >
-                    <input type="hidden" name="job_id" value="<?= $job->getId() ?>" >
-                    <a class="btn-details" href="<?= $job->getUrl() ?>">Mais detalhes</button>
-                    <!--<a class="btn-apply" href="javascript:void(0)" onclick="jQuery(this).parent().submit(); return
-                    false;">Candidatar-me</a>-->
-                <!--</form>-->
+                <input type="hidden" name="action" value="apply_to_job" >
+                <input type="hidden" name="job_id" value="<?= $job->getId() ?>" >
+                <a class="btn-details" href="<?= $job->getUrl() ?>">Mais detalhes</button>
             </div>
         </div>
     <?php } ?>
@@ -69,3 +70,4 @@
         <?php } ?>
     </nav>
 </div>
+<script src="\wordpress\wp-content\plugins\bne\public\js\cidade-estados.js"></script>
