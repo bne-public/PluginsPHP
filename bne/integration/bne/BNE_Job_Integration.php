@@ -74,12 +74,14 @@ class BNE_Job_Integration implements I_Job_Integration
     * @param      int       $page               The page to be retrieved (first page = 1)
     * @param      int       $results_per_page   The number of records per page
     */
-    public function GetJobs($query, $page, $results_per_page)
+    public function GetJobs($query, $page, $results_per_page, $sigla_estados, $cidade)
     {
         $api_client = new \Swagger\Client\ApiClient($this->apiManager->configuration);
         $vagas_api = new \Swagger\Client\Api\VagasApi($api_client);
 
 		$qEmployer = (trim($query) != "") ? "employer " . $query : "employer";
+		$qsigla_estado = (trim($sigla_estados) != "") ? $sigla_estados : null;
+		$qcidades = (trim($cidade) != "") ? $cidade : null;
 
         $result = $vagas_api->vagasGet($page, $results_per_page, $qEmployer, $salario_minimo = null,
         null,
@@ -89,8 +91,8 @@ class BNE_Job_Integration implements I_Job_Integration
         null,
         null,
         null,
-        null,
-        null,
+        $qsigla_estado,
+        $qcidades,
         null,
         null,
         null,

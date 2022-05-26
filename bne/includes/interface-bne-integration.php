@@ -20,7 +20,7 @@ interface I_Job_Integration
     * @param      int       $page               The page to be retrieved (first page = 1)
     * @param      int       $results_per_page   The number of records per page
     */
-    public function GetJobs($query, $page, $results_per_page);
+    public function GetJobs($query, $page, $results_per_page, $sigla_estados, $cidade);
 
     /**
     * Apply to job
