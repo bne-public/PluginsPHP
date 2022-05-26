@@ -163,8 +163,8 @@ class BNE_Public
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/lib/class-job-search-result.php';
         
         $query = get_query_var('q');
-		$sigla_estados = get_query_var('estado');//$_GET['estado'];
-	    $cidade = get_query_var('cidade');//$_GET['cidade'];
+		$sigla_estados = get_query_var('estado');
+	    $cidade = get_query_var('cidade');
         $job_search_result_url = get_home_url() .
           get_option( BNE_Strings::JOB_SEARCH_RESULT_URL_OPTION_NAME ) .
           "?q=" . urlencode($query);
@@ -178,7 +178,7 @@ class BNE_Public
         $search_result =  $this->integrator->GetJobs($query, $page, get_option( BNE_Strings::JOB_SEARCH_RESULTS_PER_PAGE_OPTION_NAME ), $sigla_estados, $cidade );
 
         wp_enqueue_style('bne-job-search-result-style', plugin_dir_url( __FILE__ ) . 'css/bne-public.css' );
-        
+        wp_enqueue_script('bne-job-search-result-script', plugin_dir_url( __FILE__ ) . 'js/cidade-estados.js' );
         ob_start();
         include(plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/bne-job-search-result-shortcode.php');
         $content = ob_get_clean();
