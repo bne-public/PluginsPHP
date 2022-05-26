@@ -24,8 +24,14 @@
     </form>
 </div>
 <div class="jobs">
-    <?php
-    foreach ($search_result->getJobs() as $key => $job) { ?>
+    <?php if($search_result->getJobs() == null){ ?>
+    <h5 style="color: red">Não encontramos nenhuma vaga, por favor, realize novamente a pesquisa!</h5>
+    <?php }else{
+        foreach ($search_result->getJobs() as $key => $job) {
+            if($job->getshortDescription() == ""){
+                continue;
+            }else{
+            ?>
         <div class="job">
             <h3 class="job-title"><?= $job->getTitle() ?> </h3>
             <div class="job-location"><?= $job->getLocation() ?> </div>
@@ -33,10 +39,10 @@
             <div class="job-links">
                 <input type="hidden" name="action" value="apply_to_job" >
                 <input type="hidden" name="job_id" value="<?= $job->getId() ?>" >
-                <a class="btn-details" href="<?= $job->getUrl() ?>">Mais detalhes</button>
+                <a class="btn-details" href="<?= $job->getUrl() ?>">Mais detalhes</button></a>
             </div>
         </div>
-    <?php } ?>
+    <?php } }?>
 
     <nav id="pagination">
         <?php if ( $page > 1 ) { ?>
@@ -67,7 +73,6 @@
 
         if ($page < $total_pages) { ?>
             <a class="next page-numbers" href="<?= $job_search_result_url ?>&page_num=<?= $page + 1 ?>">Próximo</a>
-        <?php } ?>
+        <?php } }?>
     </nav>
 </div>
-<script src="\wordpress\wp-content\plugins\bne\public\js\cidade-estados.js"></script>
