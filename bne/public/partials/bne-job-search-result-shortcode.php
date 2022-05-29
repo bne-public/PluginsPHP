@@ -13,12 +13,17 @@
 ?>
 <div class="job-search-form">
     <form action="<?= $job_search_result_url ?>" method="GET">
-        <input type="text" name="q" value="" placeholder="Digitar a função (ex.: Vendedor)" />
+	    <?php
+	    $q = (!empty($_GET['q'])) ? $_GET['q'] : '';
+	    $estado = (!empty($_GET['estado'])) ? $_GET['estado'] : 'Selecione um Estado';
+	    $cidade = (!empty($_GET['cidade'])) ? $_GET['cidade'] : 'Selecione uma Cidade';
+	    ?>
+        <input type="text" name="q" value="<?php echo htmlentities( $q ) ; ?>" placeholder="Digitar a função (ex.: Vendedor)" />
         <select name="estado" id="uf">
-            <option disabled selected value>Selecione</option>
+            <option disabled selected value><?php echo htmlentities( $estado ) ; ?></option>
         </select>
         <select name="cidade" id="cidade">
-        <option disabled selected value>Selecione</option>   
+        <option disabled selected value><?php echo htmlentities( $cidade  ) ; ?></option>
         </select>
         <input type="submit" value="<?= __("Buscar Vagas") ?>" />
     </form>

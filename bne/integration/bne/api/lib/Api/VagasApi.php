@@ -588,7 +588,7 @@ class VagasApi
         $facet_field = null)
     {
 		
-		$qEmployer = (trim($query) != "") ? "employer " . $query : "employer";
+		$qEmployer = (trim($query) != "") ? $query : " ";
 		
         list($response) = $this->vagasGetWithHttpInfo($pagina, $registros_por_pagina, $qEmployer, $salario_minimo, $salario_maximo, $tipo_vinculo, $funcao, $area, $escolaridade, $deficiencia, $disponibilidade, $sigla_estado, $nome_cidade, $empresa, $data_inicio, $data_fim, $id_origem, $oportunidade, $ordenacao, $curso, $id_curso, $curriculo, $oferece_curso, $funcao_agrupadora, $cidade_regiao, $idf_filial, $confidencial, $campanha, $usuario_filial, $facet_field);
         return $response;

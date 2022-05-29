@@ -79,7 +79,7 @@ class BNE_Job_Integration implements I_Job_Integration
         $api_client = new \Swagger\Client\ApiClient($this->apiManager->configuration);
         $vagas_api = new \Swagger\Client\Api\VagasApi($api_client);
 
-		$qEmployer = (trim($query) != "") ? "employer " . $query : "employer";
+		$qEmployer = (trim($query) != "") ? $query : "";
 		$qsigla_estado = (trim($sigla_estados) != "") ? $sigla_estados : null;
 		$qcidades = (trim($cidade) != "") ? $cidade : null;
 
@@ -97,7 +97,7 @@ class BNE_Job_Integration implements I_Job_Integration
         null,
         null,
         null,
-        "false" );
+        "true" );
         
         $jobs = array();
         $bne_jobs = $result->getRegistros();
