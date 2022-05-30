@@ -5,7 +5,7 @@
  *
  * @package    BNE
  * @subpackage BNE/public;lib
- * @author     Francisco Ribas <franciscoribas@bne.com.br>
+ * @author     Fabrício Pereira<fabriciopereira@bne.com.br>
  */
 class BNE_Util 
 {

@@ -7,7 +7,7 @@ use Swagger\Client\Model;
  * The job with the ajax handlers for BNE.
  *
  * @package    BNE
- * @author     Francisco Ribas <franciscoribas@bne.com.br>
+ * @author     Fabrício Pereira<fabriciopereira@bne.com.br>
  */
 class BNE_Ajax_Handlers
 {

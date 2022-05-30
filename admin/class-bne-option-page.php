@@ -15,7 +15,7 @@
  *
  * @package    BNE
  * @subpackage BNE/admin
- * @author     Francisco Ribas <franciscoribas@bne.com.br>
+ * @author     Fabrício Pereira<fabriciopereira@bne.com.br>
  */
 class BNE_Option_Page
 {
