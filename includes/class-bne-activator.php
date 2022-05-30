@@ -89,6 +89,19 @@ class BNE_Activator
         if (empty(get_option( BNE_Strings::SANDBOX_OPTION_NAME ))) {
             update_option( BNE_Strings::SANDBOX_OPTION_NAME, "on" );
         }
+        // Defining default value for job search result url
+        if (empty(get_option( BNE_Strings::JOB_SEARCH_RESULT_URL_OPTION_NAME ))) {
+            update_option( BNE_Strings::JOB_SEARCH_RESULT_URL_OPTION_NAME,
+                BNE_Strings::JOB_SEARCH_RESULT_DEFAULT_URL );
+                // Updating all parameters linked with job search result
+                BNE_Option_Page::update_job_search_result_options();
+        }
+
+        // Defining default value for results per page
+        if (empty(get_option( BNE_Strings::JOB_SEARCH_RESULTS_PER_PAGE_OPTION_NAME ))) {
+            update_option( BNE_Strings::JOB_SEARCH_RESULTS_PER_PAGE_OPTION_NAME,
+                BNE_Strings::JOB_SEARCH_RESULTS_PER_PAGE_DEFAULT_VALUE );
+        }
     }
 
     /**

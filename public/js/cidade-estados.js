@@ -7,7 +7,7 @@ uf.addEventListener('change', async function(){
     const request = await fetch(urlCidades);
     const response = await request.json();
     
-    let options = '<option></option>'
+    let options = '<option>Selecione uma Cidade</option>'
 
     response.forEach(function(cidades){
         options += '<option>'+cidades.nome+'</option>'
