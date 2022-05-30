@@ -164,10 +164,10 @@ class BNE_Public
         
         $query = get_query_var('q');
 		$sigla_estados = get_query_var('estado');
-	    $cidade = get_query_var('cidade');
+        $cidade = get_query_var('cidade')  == 'Selecione uma Cidade' ? '' : get_query_var('cidade');
         $job_search_result_url = get_home_url() .
           get_option( BNE_Strings::JOB_SEARCH_RESULT_URL_OPTION_NAME ) .
-          "?q=" . urlencode($query);
+          "?q=" . urlencode($query) . "&estado=" . $sigla_estados . "&cidade=" . $cidade;
         $page = get_query_var('page_num');
         if (empty($page)) {
             $page = 1;
