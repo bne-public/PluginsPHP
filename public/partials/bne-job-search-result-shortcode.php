@@ -54,8 +54,8 @@
                     }else{
                     ?>
                 <article class="job">
-                    <h2 class="job-title"><?= $job->getTitle() ?> </h2>
-                    <h3 class="job-location"><?= $job->getLocation() ?> </h3>
+                    <h2 class="job-title"><strong><?= $job->getTitle() ?></strong></h2>
+                    <h3 class="job-location"><i><?= $job->getLocation() ?></i></h3>
                     <p class="job-description"><?= $job->getShortDescription() ?></p>
                     <div class="job-links">
                         <input type="hidden" name="action" value="apply_to_job" >
