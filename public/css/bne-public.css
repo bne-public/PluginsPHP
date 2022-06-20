@@ -111,7 +111,7 @@
   top: -10px;
   width: 90% !important;
   max-width: 90% !important;
-  padding: 20px;
+  padding: 20px 10px;
   background-color: #f9f9f9;
 }
 
@@ -122,9 +122,9 @@
 }
 
 .job {
-  width: calc(33% - 20px);
+  width: calc(33% - 10px);
   min-width: 280px;
-  margin: 10px;
+  margin: 10px 5px;
   padding: 20px;
 
   border: 1px solid #e6e6e6;
@@ -137,7 +137,7 @@
 .job h2.job-title {
   min-height: 35px;
   margin: 0;
-  font-size: .8em;
+  font-size: .9em;
   font-weight: bold;
   color: #01579B;
   border-bottom: solid 1px #e6e6e6;
@@ -163,8 +163,11 @@
 }
 
 .job .job-links a {
-  font-size: 14px;
+  font-size: 1em;
+  font-weight: 600;
   margin: 0 0.5em;
+  text-decoration: none;
+  color: #000;
 }
 
 .job .btn-details {
