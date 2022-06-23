@@ -635,7 +635,7 @@ class BNE_Job_Integration implements I_Job_Integration
         wp_enqueue_script( 'jquery.mask', plugin_dir_url( __FILE__ )  . '../../public/js/jquery.mask.min.js', array('jquery'), null, true);
         wp_enqueue_script( 'bne-register-cv', plugin_dir_url( __FILE__ ) . 'js/bne-register-cv.js', array( 'jquery', 'jquery-ui-autocomplete', 'jquery-ui-tooltip' ), null, true );
         
-        wp_register_style( 'jquery-ui-styles', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );
+        wp_register_style( 'jquery-ui-styles', plugin_dir_url( __FILE__ )  . 'css/jquery-ui.min.css');
         wp_enqueue_style( 'jquery-ui-styles' );
         wp_enqueue_style('bne-register-cv', plugin_dir_url( __FILE__ )  . 'css/bne-register-cv.css');
         
@@ -707,10 +707,10 @@ class BNE_Job_Integration implements I_Job_Integration
             return null;
         }
 
-        $split = explode("/", $_REQUEST['dn']);
+        $split = explode("/", wp_kses_post($_REQUEST['dn']));
 
         $dn = "{$split[2]}-{$split[1]}-{$split[0]}";
-        $cpf = floatval(preg_replace("/[^0-9]/", "", $_REQUEST['cpf']));
+        $cpf = floatval(preg_replace("/[^0-9]/", "", wp_kses_post($_REQUEST['cpf'])));
 
         $this->apiManager->SetApiKeyHeader($cpf, $dn);
         try {
