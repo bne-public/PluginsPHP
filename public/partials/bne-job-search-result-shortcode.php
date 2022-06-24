@@ -13,7 +13,7 @@
 ?>
 <section class="jobs-bne">
     <section class="logo">
-        <a href="<?php echo esc_url('https://www.bne.com.br/') ?>" title="Acesse o Banco Nacional de Empregos - BNE" target="_blank"><img src="https://mailing.bne.com.br/repositorio/svg/bne/logos/logo-bne.svg" alt="Vagas de Emprego"></a>
+        <a href="<?php echo esc_url('https://www.bne.com.br/') ?>" title="Acesse o Banco Nacional de Empregos - BNE" target="_blank"><img src="../img/logo-bne.png" alt="Vagas de Emprego"></a>
     </section>
     <section class="job-search-form">
         <h1>Filtro de Vagas de Emprego</h1>
