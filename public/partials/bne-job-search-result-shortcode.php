@@ -19,15 +19,13 @@
         <h1>Filtro de Vagas de Emprego</h1>
         <form action="<?php echo esc_url($job_search_result_url) ?>" method="GET">
             <?php
-            $q = (!empty($_GET['q'])) ? $_GET['q'] : '';
-            $estado = (!empty($_GET['estado'])) ? $_GET['estado'] : 'Selecione um Estado';
-            $cidade = (!empty($_GET['cidade'])) ? $_GET['cidade'] : 'Selecione uma Cidade';
+            $q =  isset($_GET['q']) ? sanitize_text_field($_GET['q']) : '';
+            $estado = isset($_GET['estado']) ? sanitize_text_field($_GET['estado']) : 'Selecione um Estado';
+            $cidade = isset($_GET['cidade']) ? sanitize_text_field($_GET['cidade']) : 'Selecione uma Cidade';
             ?>
             <div class="fields">
                 <div class="form-group">
                     <input type="text" name="q" placeholder="Digitar a função (ex.: Vendedor)" />
-                    <?php $q = sanitize_text_field( $_POST['q'] );
-                    update_post_meta( $post->ID, 'q', $q ); ?>
                 </div>
                 <div class="form-group">
                     <select name="estado" id="uf">
