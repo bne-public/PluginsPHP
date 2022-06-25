@@ -158,7 +158,7 @@ class BNE_Public
      */
     public function job_search_result_shortcode()
     {
-      
+        define("IMG_LOGO", plugin_dir_url( __FILE__ ). 'img/logo-bne.png');
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/lib/class-job-post.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/lib/class-job-search-result.php';
         
