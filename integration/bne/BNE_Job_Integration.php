@@ -36,8 +36,8 @@ class BNE_Job_Integration implements I_Job_Integration
         /**
         * The class thar contains the strings with the names used in plugin
         */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'bne/api/autoload.php';
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'bne/api/lib/ApiException.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . '../includes/bne-api/autoload.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . '../includes/bne-api/lib/ApiException.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'bne/BNE_Util.php';        
 
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'bne/BNE_Api_Manager.php';
