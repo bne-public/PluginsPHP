@@ -1,10 +1,10 @@
 === BNE - Vagas ===
-Contributors: fbrdev
+Contributors: bnevagas, fbrdev
 Author URI: https://www.bne.com.br/
 Tags: vacancies, jobs, job listing
 Requires at least: 5.0
 Tested up to: 6.0
-Stable tag: 5.4
+Stable tag: 1.0.0
 License: GNU AGPL v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

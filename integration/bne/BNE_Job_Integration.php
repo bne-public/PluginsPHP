@@ -36,8 +36,8 @@ class BNE_Job_Integration implements I_Job_Integration
         /**
         * The class thar contains the strings with the names used in plugin
         */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'bne/api/autoload.php';
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'bne/api/lib/ApiException.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . '../includes/bne-api/autoload.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . '../includes/bne-api/lib/ApiException.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'bne/BNE_Util.php';        
 
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'bne/BNE_Api_Manager.php';
@@ -254,7 +254,7 @@ class BNE_Job_Integration implements I_Job_Integration
     * @return   bool
     */
     public function SaveRegisterCV(){
-        echo "SaveRegisterCV<br>";
+        echo esc_html("SaveRegisterCV<br>");
 
         $api_client = new \Swagger\Client\ApiClient($this->apiManager->configuration);
         $curriculo_api = new \Swagger\Client\Api\CurriculoApi($api_client);
@@ -276,7 +276,7 @@ class BNE_Job_Integration implements I_Job_Integration
             }
         }
 
-        echo "Curriculo recuperado<br>";
+        echo esc_html("Curriculo recuperado<br>");
 
         if(isset($_REQUEST['passo']) && $_REQUEST['passo'] == 1){
             $curriculo->setMiniCurriculo($this->GetMiniCurriculoFromRequest());
@@ -284,24 +284,24 @@ class BNE_Job_Integration implements I_Job_Integration
             $curriculo->setExperiencias(null);
             $curriculo->setFormacao(null);
             $curriculo->setDadosComplementares(null);
-        }elseif ($_REQUEST["passo"] == 2) {
+        }elseif (wp_kses_post($_REQUEST["passo"]) == 2) {
             $curriculo->setDadosPessoais($this->GetDadosPessoaisFromRequest());
             $curriculo->setExperiencias($this->GetExperienciasFromRequest());
             $curriculo->setFormacao(null);
             $curriculo->setDadosComplementares(null);
-        }elseif ($_REQUEST["passo"] == 3) {
+        }elseif (wp_kses_post($_REQUEST["passo"]) == 3) {
             $curriculo->setFormacao($this->GetFormacaoFromRequest());
             $curriculo->setDadosPessoais(null);
             $curriculo->setExperiencias(null);
             $curriculo->setDadosComplementares(null);
-        }elseif ($_REQUEST["passo"] == 4) {
+        }elseif (wp_kses_post($_REQUEST["passo"]) == 4) {
             $curriculo->setDadosComplementares($this->GetDadosComplementaresFromRequest());
             $curriculo->setDadosPessoais(null);
             $curriculo->setExperiencias(null);
             $curriculo->setFormacao(null);
         }
 
-        echo "Objeto completado<br>";        
+        echo esc_html("Objeto completado<br>");        
 
         try{
             if($this->IsLoggedIn()){
@@ -315,7 +315,7 @@ class BNE_Job_Integration implements I_Job_Integration
             }
             $passoAtual = isset($_REQUEST['passo']) ? $_REQUEST['passo'] : 1;
             
-            echo "passo = " . $passoAtual;
+            echo esc_html("passo = " . $passoAtual);
 
             if($passoAtual < 4){
                 wp_redirect(BNE_Public::get_register_link("?passo=" . ($passoAtual + 1) ) );
@@ -338,7 +338,7 @@ class BNE_Job_Integration implements I_Job_Integration
     protected function GetMiniCurriculoFromRequest(){
         $miniCurriculo = new \Swagger\Client\Model\InlineResponse200MiniCurriculo();
         
-        $miniCurriculo->setNome($_REQUEST['nome']);
+        $miniCurriculo->setNome(wp_kses_post($_REQUEST['nome']));
 
         $cpf = 0;
         $dn = "";
@@ -348,15 +348,15 @@ class BNE_Job_Integration implements I_Job_Integration
             $cpf = $logInInfo->CPF;
             $dn = $logInInfo->DataNascimento;
         }else{
-            $cpf = floatval(preg_replace("/[^0-9]/", "", $_REQUEST['cpf']));
-            $dn = BNE_Util::GetJsonFormatDate($_REQUEST['dn']);
+            $cpf = floatval(preg_replace("/[^0-9]/", "", wp_kses_post($_REQUEST['cpf'])));
+            $dn = BNE_Util::GetJsonFormatDate(wp_kses_post($_REQUEST['dn']));
         }     
         $miniCurriculo->setCpf($cpf);
         $miniCurriculo->setDataNascimento($dn);
         
-        $miniCurriculo->setEmail($_REQUEST['email']);
+        $miniCurriculo->setEmail(wp_kses_post($_REQUEST['email']));
 
-        $celular = preg_replace("/[^()0-9]/", "", $_REQUEST['celular']);
+        $celular = preg_replace("/[^()0-9]/", "", wp_kses_post($_REQUEST['celular']));
         $reCelular = '/(?P<ddd>\([0-9]{2}\))(?P<numero>[0-9]{8,9})/';
         $matches = array();
         preg_match($reCelular, $celular, $matches);
@@ -365,27 +365,27 @@ class BNE_Job_Integration implements I_Job_Integration
         $miniCurriculo->setDddCelular($ddd);
         $miniCurriculo->setNumeroCelular($numCel);
 
-        $miniCurriculo->setSexo($_REQUEST['sexo']);
-        $miniCurriculo->setCidade($_REQUEST['cidade']);
-        $miniCurriculo->setEscolaridade($_REQUEST['escolaridade']);
+        $miniCurriculo->setSexo(wp_kses_post($_REQUEST['sexo']));
+        $miniCurriculo->setCidade(wp_kses_post($_REQUEST['cidade']));
+        $miniCurriculo->setEscolaridade(wp_kses_post($_REQUEST['escolaridade']));
         $miniCurriculo->setAceitoEstagio(BNE_Util::Try_Get_Boolean_InArray($_REQUEST, array('aceitaEstagio')));
 
         $funcoesPretendidas = array();
 
         for ($i=0; $i < 3; $i++) {     
-            if(!empty($_REQUEST['funcao_pretendida_'.($i+1)])){
+            if(!empty(intval($_REQUEST['funcao_pretendida_'.($i+1)]))){
                 $funcaoPretendida = new \Swagger\Client\Model\InlineResponse200MiniCurriculoFuncoesPretendidas();
-                $funcaoPretendida->setFuncao($_REQUEST['funcao_pretendida_'.($i+1)]);
+                $funcaoPretendida->setFuncao(int_val($_REQUEST['funcao_pretendida_'.($i+1)]));
                 $anos = intval($_REQUEST['anos_experiencia_'.($i+1)]);
                 $meses = intval($_REQUEST['meses_experiencia_'.($i+1)]);
-                $funcaoPretendida->setMesesDeExperiencia($anos * 12 + $meses);
+                $funcaoPretendida->setMesesDeExperiencia(intval($anos * 12 + $meses));
                 array_push($funcoesPretendidas, $funcaoPretendida);
             }
         }
 
         $miniCurriculo->setFuncoesPretendidas($funcoesPretendidas);
 
-        $pretensao = str_replace(".","",$_REQUEST['pretensao']);
+        $pretensao = str_replace(".","",wp_kses_post($_REQUEST['pretensao']));
         $pretensao = str_replace(",",".",$pretensao);
 
         $miniCurriculo->setPretensaoSalarial($pretensao);
@@ -402,32 +402,32 @@ class BNE_Job_Integration implements I_Job_Integration
     protected function GetDadosPessoaisFromRequest(){
         $dadosPessoais = new \Swagger\Client\Model\InlineResponse200DadosPessoais();
         
-        $dadosPessoais->setNumeroRg($_REQUEST['rg']);
-        $dadosPessoais->setOrgaoEmissorRg($_REQUEST['oe']);
-        $dadosPessoais->setEstadoCivil($_REQUEST['estado_civil']);
+        $dadosPessoais->setNumeroRg(wp_kses_post($_REQUEST['rg']));
+        $dadosPessoais->setOrgaoEmissorRg(wp_kses_post($_REQUEST['oe']));
+        $dadosPessoais->setEstadoCivil(wp_kses_post($_REQUEST['estado_civil']));
 
         $endereco = new \Swagger\Client\Model\InlineResponse200DadosPessoaisEndereco();
-        $endereco->setCep($_REQUEST['cep']);
-        $endereco->setLogradouro($_REQUEST['endereco']);
-        $endereco->setNumero($_REQUEST['numero']);
-        $endereco->setComplemento($_REQUEST['complemento']);
-        $endereco->setBairro($_REQUEST['bairro']);
-        $endereco->setCidade($_REQUEST['cidade']);
+        $endereco->setCep(wp_kses_post($_REQUEST['cep']));
+        $endereco->setLogradouro(wp_kses_post($_REQUEST['endereco']));
+        $endereco->setNumero(wp_kses_post($_REQUEST['numero']));
+        $endereco->setComplemento(wp_kses_post($_REQUEST['complemento']));
+        $endereco->setBairro(wp_kses_post($_REQUEST['bairro']));
+        $endereco->setCidade(wp_kses_post($_REQUEST['cidade']));
         $dadosPessoais->setEndereco($endereco);
         
-        $split = BNE_Util::Split_Telefone($_REQUEST['fixo']);
+        $split = BNE_Util::Split_Telefone(wp_kses_post($_REQUEST['fixo']));
         $dadosPessoais->setDddTelefoneFixo(array_key_exists('ddd', $split) ? $split['ddd'] : 0);
         $dadosPessoais->setNumeroTelefoneFixo(array_key_exists('numero', $split) ? $split['numero'] : 0);
 
-        $split = BNE_Util::Split_Telefone($_REQUEST['fixo_recado']);
+        $split = BNE_Util::Split_Telefone(wp_kses_post($_REQUEST['fixo_recado']));
         $dadosPessoais->setDddTelefoneFixoRecado(array_key_exists('ddd', $split) ? $split['ddd'] : 0);
         $dadosPessoais->setNumeroTelefoneFixoRecado(array_key_exists('numero', $split) ? $split['numero'] : 0);
-        $dadosPessoais->setNomeContatoTelefoneFixo($_REQUEST['falar_com_fixo']);
+        $dadosPessoais->setNomeContatoTelefoneFixo(wp_kses_post($_REQUEST['falar_com_fixo']));
 
-        $split = BNE_Util::Split_Telefone($_REQUEST['celular_recado']);
+        $split = BNE_Util::Split_Telefone(wp_kses_post($_REQUEST['celular_recado']));
         $dadosPessoais->setDddCelularRecado(array_key_exists('ddd', $split) ? $split['ddd'] : 0);
         $dadosPessoais->setNumeroCelularRecado(array_key_exists('numero', $split) ? $split['numero'] : 0);
-        $dadosPessoais->setNomeContatoCelular($_REQUEST['falar_com_celular']);
+        $dadosPessoais->setNomeContatoCelular(wp_kses_post($_REQUEST['falar_com_celular']));
 
         return $dadosPessoais;
     }
@@ -447,7 +447,7 @@ class BNE_Job_Integration implements I_Job_Integration
             return $experiencias;
         }
 
-        foreach ($_REQUEST['experiencias'] as $key => $value) {
+        foreach (wp_kses_post($_REQUEST['experiencias']) as $key => $value) {
             $experiencia = new \Swagger\Client\Model\InlineResponse200Experiencias();
 
             if(!isset($value['nome_empresa']) || $value['nome_empresa'] == null || strlen($value['nome_empresa']) <= 0)
@@ -478,7 +478,7 @@ class BNE_Job_Integration implements I_Job_Integration
 
         $cursosFormacao = array();
         if(array_key_exists('formacao', $_REQUEST)){
-            foreach ($_REQUEST['formacao'] as $key => $value) {
+            foreach (wp_kses_post($_REQUEST['formacao']) as $key => $value) {
                 $curso = new \Swagger\Client\Model\InlineResponse200FormacaoCursosFormacao();
 
                 $curso->setNivelFormacao($value['nivel']);
@@ -494,7 +494,7 @@ class BNE_Job_Integration implements I_Job_Integration
         }
 
         if(array_key_exists('especializacao', $_REQUEST)){
-            foreach ($_REQUEST['especializacao'] as $key => $value) {
+            foreach (wp_kses_post($_REQUEST['especializacao']) as $key => $value) {
                 $curso = new \Swagger\Client\Model\InlineResponse200FormacaoCursosFormacao();
 
                 $curso->setNivelFormacao($value['nivel']);
@@ -510,7 +510,7 @@ class BNE_Job_Integration implements I_Job_Integration
         
         $cursosComplementares = array();
         if(array_key_exists('curso_complementar', $_REQUEST)){
-            foreach ($_REQUEST['curso_complementar'] as $key => $value) {
+            foreach (wp_kses_post($_REQUEST['curso_complementar']) as $key => $value) {
                 $curso = new \Swagger\Client\Model\InlineResponse200FormacaoCursosComplementares();
 
                 $curso->setNomeCurso($value['curso']);
@@ -526,7 +526,7 @@ class BNE_Job_Integration implements I_Job_Integration
 
         $idiomas = array();
         if(array_key_exists('idioma', $_REQUEST)){
-            foreach ($_REQUEST['idioma'] as $key => $value) {
+            foreach (wp_kses_post($_REQUEST['idioma']) as $key => $value) {
                 $idioma = new \Swagger\Client\Model\InlineResponse200FormacaoIdiomas();
 
                 $idioma->setDescricaoIdioma($value['idioma']);               
@@ -551,7 +551,7 @@ class BNE_Job_Integration implements I_Job_Integration
 
         $veiculos = array();
         if(array_key_exists("veiculo", $_REQUEST)){
-            foreach ($_REQUEST['veiculo'] as $key => $value) {
+            foreach (wp_kses_post($_REQUEST['veiculo']) as $key => $value) {
                 $veiculo = new \Swagger\Client\Model\InlineResponse200DadosComplementaresVeiculos();
 
                 $veiculo->setTipoVeiculo($value['tipo']);
@@ -635,7 +635,7 @@ class BNE_Job_Integration implements I_Job_Integration
         wp_enqueue_script( 'jquery.mask', plugin_dir_url( __FILE__ )  . '../../public/js/jquery.mask.min.js', array('jquery'), null, true);
         wp_enqueue_script( 'bne-register-cv', plugin_dir_url( __FILE__ ) . 'js/bne-register-cv.js', array( 'jquery', 'jquery-ui-autocomplete', 'jquery-ui-tooltip' ), null, true );
         
-        wp_register_style( 'jquery-ui-styles', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );
+        wp_register_style( 'jquery-ui-styles', plugin_dir_url( __FILE__ )  . 'css/jquery-ui.min.css');
         wp_enqueue_style( 'jquery-ui-styles' );
         wp_enqueue_style('bne-register-cv', plugin_dir_url( __FILE__ )  . 'css/bne-register-cv.css');
         
@@ -644,15 +644,15 @@ class BNE_Job_Integration implements I_Job_Integration
             ob_start();
             include(plugin_dir_path( dirname( __FILE__ ) ) . 'bne/partials/register-cv-01.php');
             $content = ob_get_clean();
-        }elseif($_REQUEST['passo'] == 2){
+        }elseif(wp_kses_post($_REQUEST['passo']) == 2){
             ob_start();
             include(plugin_dir_path( dirname( __FILE__ ) ) . 'bne/partials/register-cv-02.php');
             $content = ob_get_clean();
-        }elseif($_REQUEST['passo'] == 3){
+        }elseif(wp_kses_post($_REQUEST['passo']) == 3){
             ob_start();
             include(plugin_dir_path( dirname( __FILE__ ) ) . 'bne/partials/register-cv-03.php');
             $content = ob_get_clean();
-        }elseif($_REQUEST['passo'] == 4){
+        }elseif(wp_kses_post($_REQUEST['passo']) == 4){
             ob_start();
             include(plugin_dir_path( dirname( __FILE__ ) ) . 'bne/partials/register-cv-04.php');
             $content = ob_get_clean();
@@ -707,10 +707,10 @@ class BNE_Job_Integration implements I_Job_Integration
             return null;
         }
 
-        $split = explode("/", $_REQUEST['dn']);
+        $split = explode("/", wp_kses_post($_REQUEST['dn']));
 
         $dn = "{$split[2]}-{$split[1]}-{$split[0]}";
-        $cpf = floatval(preg_replace("/[^0-9]/", "", $_REQUEST['cpf']));
+        $cpf = floatval(preg_replace("/[^0-9]/", "", wp_kses_post($_REQUEST['cpf'])));
 
         $this->apiManager->SetApiKeyHeader($cpf, $dn);
         try {
