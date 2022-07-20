@@ -23,15 +23,6 @@
             $q =  isset($_GET['q']) ? sanitize_text_field($_GET['q']) : '';
             $estado = isset($_GET['estado']) ? sanitize_text_field($_GET['estado']) : 'Selecione um Estado';
             $cidade = isset($_GET['cidade']) ? sanitize_text_field($_GET['cidade']) : 'Selecione uma Cidade';
-
-            function limitar($str, $limita = 100, $limpar = true){
-
-	            if($limpar = true){
-		            $str = strip_tags($str);
-	            }
-
-	            return mb_substr($str, 0, $limita).'...';
-            }
             ?>
             <div class="fields">
                 <div class="form-group">
@@ -60,13 +51,11 @@
             <?php }else{
                 foreach ($search_result->getJobs() as $key => $job) {?>
                 <article class="job">
-                    <h2 class="job-title"><strong><?php echo esc_html($job->Funcao) ?></strong></h2>
-                    <h3 class="job-location"><i><?php echo esc_html($job->Cidade)?></i></h3>
-                    <p class="job-description"><?php echo esc_html($job->DescricaoGeral == null ? limitar("$job->Atribuicoes"."$job->Requisitos"."$job->Beneficios") : $job->DescricaoGeral ) ?></p>
+                    <h2 class="job-title"><strong><?php echo esc_html($job->getTitle()) ?></strong></h2>
+                    <h3 class="job-location"><i><?php echo esc_html($job->getLocation())?></i></h3>
+                    <p class="job-description"><?php echo esc_html($job->getShortDescription()) ?></p>
                     <div class="job-links">
-                        <input type="hidden" name="action" value="apply_to_job" >
-                        <input type="hidden" name="job_id" value="<?php echo esc_html($job->Id) ?>" >
-                        <a class="btn-details" title="Detalhes da Vaga" href="<?php echo esc_html($job->Url) ?>">Informações da Vaga &#10150;</a>
+                        <a class="btn-details" title="Detalhes da Vaga" href="<?php echo esc_html($job->getUrl()) ?>">Informações da Vaga &#10150;</a>
                     </div>
                 </article>
             <?php }?>
