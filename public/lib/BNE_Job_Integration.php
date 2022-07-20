@@ -1,6 +1,4 @@
 <?php
-use Swagger\Client;
-use Swagger\Client\Api;
 
 /**
  * The job search for BNE api.

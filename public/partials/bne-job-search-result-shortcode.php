@@ -10,6 +10,7 @@
  * @package    BNE
  * @subpackage BNE/public/partials
  */
+
 ?>
 <section class="jobs-bne">
     <section class="logo">
@@ -22,6 +23,15 @@
             $q =  isset($_GET['q']) ? sanitize_text_field($_GET['q']) : '';
             $estado = isset($_GET['estado']) ? sanitize_text_field($_GET['estado']) : 'Selecione um Estado';
             $cidade = isset($_GET['cidade']) ? sanitize_text_field($_GET['cidade']) : 'Selecione uma Cidade';
+
+            function limitar($str, $limita = 100, $limpar = true){
+
+	            if($limpar = true){
+		            $str = strip_tags($str);
+	            }
+
+	            return mb_substr($str, 0, $limita).'...';
+            }
             ?>
             <div class="fields">
                 <div class="form-group">
@@ -45,25 +55,21 @@
     </section>
     <section class="jobs">
         <div class="content-jobs">
-            <?php if($search_result->getJobs() == null){ ?>
+            <?php if($search_result == null){ ?>
             <h5 style="color: red">Não encontramos nenhuma vaga, por favor, realize novamente a pesquisa!</h5>
             <?php }else{
-                foreach ($search_result->getJobs() as $key => $job) {
-                    if($job->getshortDescription() == ""){
-                        continue;
-                    }else{
-                    ?>
+                foreach ($search_result->getJobs() as $key => $job) {?>
                 <article class="job">
-                    <h2 class="job-title"><strong><?php echo esc_html($job->getTitle()) ?></strong></h2>
-                    <h3 class="job-location"><i><?php echo esc_html($job->getLocation())?></i></h3>
-                    <p class="job-description"><?php echo esc_html($job->getShortDescription()) ?></p>
+                    <h2 class="job-title"><strong><?php echo esc_html($job->Funcao) ?></strong></h2>
+                    <h3 class="job-location"><i><?php echo esc_html($job->Cidade)?></i></h3>
+                    <p class="job-description"><?php echo esc_html($job->DescricaoGeral == null ? limitar("$job->Atribuicoes"."$job->Requisitos"."$job->Beneficios") : $job->DescricaoGeral ) ?></p>
                     <div class="job-links">
                         <input type="hidden" name="action" value="apply_to_job" >
-                        <input type="hidden" name="job_id" value="<?php echo esc_html($job->getId()) ?>" >
-                        <a class="btn-details" title="Detalhes da Vaga" href="<?php echo esc_html($job->getUrl()) ?>">Informações da Vaga &#10150;</a>
+                        <input type="hidden" name="job_id" value="<?php echo esc_html($job->Id) ?>" >
+                        <a class="btn-details" title="Detalhes da Vaga" href="<?php echo esc_html($job->Url) ?>">Informações da Vaga &#10150;</a>
                     </div>
                 </article>
-            <?php } }?>
+            <?php }?>
         </div>
 
         <nav class="pagination"id="pagination">
