@@ -127,8 +127,10 @@ class BNE_Public
 
         $job_search_result_url = get_home_url() .
           get_option( BNE_Strings::JOB_SEARCH_RESULT_URL_OPTION_NAME ) .
-          "?q=" . urlencode($query) . "&estado=" . $sigla_estados . "&cidade=" . $cidade;
+          "?q=" . urlencode($query);
 
+	    if($sigla_estados != "") $job_search_result_url = $job_search_result_url . "&estado=" . $sigla_estados;
+		if($cidade != "") $job_search_result_url = $job_search_result_url . "&cidade=" . $cidade;
         $page = get_query_var('page_num');
         if (empty($page)) {
             $page = 1;

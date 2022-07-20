@@ -21,7 +21,7 @@ class BNE_Job_Integration implements I_Job_Integration
     */
     public function GetJobs($query, $page, $results_per_page, $sigla_estados, $cidade)
     {
-	    $url = "http://api.bne.com.br/v1.0/Vagas?pagina=$page&registrosPorPagina=$results_per_page&oportunidade=false";
+	    $url = BNE_Strings::URL_PROD_OPTION_NAME."?pagina=$page&registrosPorPagina=$results_per_page&oportunidade=false";
 
 		if(trim($query) != "")
 			$url = $url . "&query=$query";

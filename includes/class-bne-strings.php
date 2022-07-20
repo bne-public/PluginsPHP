@@ -32,9 +32,9 @@ class BNE_Strings {
     const JOB_SEARCH_FORM_SHORTCODE_NAME = 'bne-job-search-form';
     const JOB_SEARCH_RESULTS_SHORTCODE_NAME = 'bne-job-search-results';
 
-    const URL_PROD_OPTION_NAME = 'http://gatewayapi.bne.com.br/apibne';
+    const URL_PROD_OPTION_NAME = 'http://api.bne.com.br/v1.0/Vagas';
 
-    const JOB_SEARCH_RESULT_DEFAULT_URL = '/vagas-de-emprego';
+    const JOB_SEARCH_RESULT_DEFAULT_URL = '/bne-vagas';
     const JOB_SEARCH_RESULT_URL_OPTION_NAME = 'bne_job_search_result_url';
     const JOB_SEARCH_RESULT_PAGE_ID_OPTION_NAME = 'bne_job_search_result_page_id';
     const JOB_SEARCH_RESULT_REWRITE_REGEX_OPTION_NAME = 'bne_job_search_result_rewrite_regex';
