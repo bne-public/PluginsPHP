@@ -13,7 +13,7 @@
  * @package           BNE
  *
  * @wordpress-plugin
- * Plugin Name:       BNE - NOVO
+ * Plugin Name:       BNE - Vagas
  * Plugin URI:        https://www.bne.com.br/bne-vagas
  * Description:       Ofereça milhares de vagas de emprego atualizadas diariamente em seu site Wordpress. Publique anúncios de ofertas de emprego catalogadas por área com um filtro de pesquisa simples e eficiente. Assim que encontrar uma vaga de interesse, o usuário será redirecionado para o site do BNE (Banco Nacional de Empregos) para o cadastro do currículo e poderá candidatar-se à vaga escolhida de imediato.
  * Version:           1.0.0
