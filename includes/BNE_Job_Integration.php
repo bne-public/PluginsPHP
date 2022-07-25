@@ -21,21 +21,21 @@ class BNE_Job_Integration implements I_Job_Integration
     */
     public function GetJobs($query, $page, $results_per_page, $sigla_estados, $cidade)
     {
-		$data = wp_remote_get(
-		    BNE_Strings::URL_PROD_OPTION_NAME,
-		    array(
-				'body' => array(
-					'pagina' => $page,
-					'registrosPorPagina' => $results_per_page,
-					'oportunidade' => 'false',
-					'query' => $query,
-					'siglaEstado' => $sigla_estados,
-					'nomeCidade' => $cidade
-				)
-		    )
-	    );
-		$data = json_decode($data['body']);
-		if($data == null) return null;
+	    $url = BNE_Strings::URL_PROD_OPTION_NAME."?pagina=$page&registrosPorPagina=$results_per_page&oportunidade=false";
+
+	    if(trim($query) != "")
+		    $url = $url . "&query=$query";
+	    if(trim($sigla_estados) != "")
+		    $url = $url . "&siglaEstado=$sigla_estados";
+	    if(trim($cidade) != "")
+		    $url = $url . "&nomeCidade=$cidade";
+
+	    $ch = curl_init($url);
+	    curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($ch,CURLOPT_PROXY_SSL_VERIFYPEER, false);
+	    $data = json_decode(curl_exec($ch));
+
+	    if($data == null) return null;
 
         $jobs = array();
         $bne_jobs = $data->Registros;
