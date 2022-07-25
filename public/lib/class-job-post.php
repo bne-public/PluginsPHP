@@ -125,12 +125,16 @@ class Job_Post
      * Gets Assignments
      * @return string
      */
-     public function getShortDescription()
+     public function getShortDescription($limita = 100, $limpar = true)
      {
-        if(strlen($this->short_description) < 110){
+	     if($limpar = true){
+		     $this->short_description = strip_tags($this->short_description);
+	     }
+
+        if(strlen($this->short_description) < $limita){
             return $this->short_description;
         }
-        return substr($this->short_description, 0, 110) . "...";
+        return mb_substr($this->short_description, 0, $limita) . "...";
     }
 
     /**

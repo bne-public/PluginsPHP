@@ -88,7 +88,7 @@ class BNE
 				/**
         * Loding integration with BNE
         */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'integration/bne/BNE_Job_Integration.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/BNE_Job_Integration.php';
         $this->integrator = new BNE_Job_Integration();
 
         $this->define_admin_hooks();
@@ -210,9 +210,6 @@ class BNE
         
         $this->loader->add_shortcode(BNE_Strings::JOB_SEARCH_FORM_SHORTCODE_NAME, $plugin_public, 'job_search_form_shortcode');
         $this->loader->add_shortcode(BNE_Strings::JOB_SEARCH_RESULTS_SHORTCODE_NAME, $plugin_public, 'job_search_result_shortcode');
-        $this->loader->add_shortcode(BNE_Strings::JOB_VIEW_SHORTCODE_NAME, $plugin_public, 'job_view_shortcode');
-        $this->loader->add_shortcode(BNE_Strings::LOGIN_SHORTCODE_NAME, $plugin_public, 'login_shortcode');
-        $this->loader->add_shortcode(BNE_Strings::REGISTER_SHORTCODE_NAME, $plugin_public, 'register_shortcode');
     }
 
     /**
