@@ -30,10 +30,7 @@ class BNE_Job_Integration implements I_Job_Integration
 	    if(trim($cidade) != "")
 		    $url = $url . "&nomeCidade=$cidade";
 
-	    $ch = curl_init($url);
-	    curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-	    curl_setopt($ch,CURLOPT_PROXY_SSL_VERIFYPEER, false);
-	    $data = json_decode(curl_exec($ch));
+	    $data = json_decode(file_get_contents($url));
 
 	    if($data == null) return null;
 
