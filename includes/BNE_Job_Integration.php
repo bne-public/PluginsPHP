@@ -29,14 +29,8 @@ class BNE_Job_Integration implements I_Job_Integration
 		    $url = $url . "&State=$sigla_estados";
 	    if(trim($cidade) != "")
 		    $url = $url . "&City=$cidade";
-		
-			$arrContextOptions=array(
-				"ssl"=>array(
-					"verify_peer"=>false,
-					"verify_peer_name"=>false,
-				),
-			);  
-	    $data = json_decode(file_get_contents($url, false, stream_context_create($arrContextOptions)));
+
+	    $data = json_decode(file_get_contents($url));
 			
 	    if($data == null) return null;
 		
@@ -53,8 +47,9 @@ class BNE_Job_Integration implements I_Job_Integration
 	public static function GetJobPostFromVagaBne($bne_job){
 		$title = $bne_job->Title;
 		$location = $bne_job->City;
-		$description = $bne_job->Description;
-		$shortDescription = $description;
+		$shortDescription = $bne_job->Description;
+
+		if($shortDescription == "") $shortDescription = $title . " em " . $location . " área ". $bne_job->Area;
 		
 		$linkArea = mb_strtolower(preg_replace('/[ -]+/' , '-' , BNE_Job_Integration::TirarAcentos($bne_job->Area)));
 		$linkCity = mb_strtolower(preg_replace('/[ -]+/' , '-' , BNE_Job_Integration::TirarAcentos($location)));
@@ -63,10 +58,7 @@ class BNE_Job_Integration implements I_Job_Integration
 		$linkIdf = mb_strtolower($bne_job->Idf_Vaga);
 		$url = "https://www.bne.com.br/vaga-de-emprego-na-area-{$linkArea}-em-{$linkCity}-{$linkState}/{$linkFuncao}/{$linkIdf}";
 
-		if(empty($shortDescription))
-			return null;
-
-		return new Job_Post($bne_job->Id, $title, $location, $description, $shortDescription, $url);
+		return new Job_Post($bne_job->Id, $title, $location, $bne_job->Description, $shortDescription, $url);
 	}
 
 	public static function TirarAcentos($string){
