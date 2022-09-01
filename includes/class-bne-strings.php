@@ -32,7 +32,7 @@ class BNE_Strings {
     const JOB_SEARCH_FORM_SHORTCODE_NAME = 'bne-job-search-form';
     const JOB_SEARCH_RESULTS_SHORTCODE_NAME = 'bne-job-search-results';
 
-    const URL_PROD_OPTION_NAME = 'http://plugin-api.vagas.bne.com.br/api/v1/Lists/Jobs';
+    const URL_PROD_OPTION_NAME = 'https://plugin-api.vagas.bne.com.br/api/v1/Lists/Jobs';
 
     const JOB_SEARCH_RESULT_DEFAULT_URL = '/bne-vagas';
     const JOB_SEARCH_RESULT_URL_OPTION_NAME = 'bne_job_search_result_url';
