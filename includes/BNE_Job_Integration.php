@@ -46,7 +46,7 @@ class BNE_Job_Integration implements I_Job_Integration
 
 	public static function GetJobPostFromVagaBne($bne_job){
 		$title = $bne_job->Title;
-		$location = $bne_job->City;
+		$location = $bne_job->City . "/" . $bne_job->State;
 		$shortDescription = $bne_job->Description;
 
 		if($shortDescription == "") $shortDescription = $title . " em " . $location . " área ". $bne_job->Area;
